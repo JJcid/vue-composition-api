@@ -1,36 +1,23 @@
 <template>
   <div class="notes">
-    <div class="p-4 mb-5 has-background-warning">
-      <div class="field">
-        <div class="control">
-          <textarea
-            ref="newNoteRef"
-            v-model="newNote"
-            class="textarea"
-            placeholder="Añade el texto de la nota..."
-          ></textarea>
-        </div>
-      </div>
-
-      <div class="field is-grouped is-grouped-right">
-        <div class="control">
-          <button
-            @click="addNewNote"
-            :disabled="!newNote"
-            class="button has-background-warning-light"
-          >
-            Añadir nota
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <add-edit-note ref="newNoteRef" v-model="newNote">
+      <template #buttons>
+        <button
+          @click="addNewNote"
+          :disabled="!newNote"
+          class="button has-background-warning-light"
+        >
+          Añadir nota
+        </button>
+      </template>
+    </add-edit-note>
     <note
-      v-for="note in notes"
+      v-for="note in storeNotes.notes"
       :key="note.id"
       :id="note.id"
       :content="note.content"
-      @deleteNote="deleteNote"
+      @edit-note="goToEditNotePage"
+      @delete-note="storeNotes.deleteNote"
     ></note>
   </div>
 </template>
@@ -40,49 +27,36 @@
  * imports
  */
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStoreNotes } from "../store/storeNotes";
+import { useWatchCharacters } from "@/use/useWatchCharacters";
 import Note from "../components/Notes/Note.vue";
+import AddEditNote from "../components/Notes/AddEditNote.vue";
+
+/**
+ * Store
+ */
+const storeNotes = useStoreNotes();
+
+/**
+ * Router
+ */
+const router = useRouter();
+
 /**
  * Notes
  */
-
 const newNote = ref("");
+useWatchCharacters(newNote);
 const newNoteRef = ref(null);
 
-const notes = ref([
-  {
-    id: "id1",
-    content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum dolorem saepe,
-          molestias autem voluptatem tempore porro necessitatibus voluptatibus quasi
-          repudiandae fugit ea distinctio. Amet voluptas architecto doloremque cupiditate
-          distinctio necessitatibus?`,
-  },
-  {
-    id: "id2",
-    content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum dolorem saepe,
-          molestias autem voluptatem tempore porro necessitatibus voluptatibus quasi
-          repudiandae fugit ea distinctio. Amet voluptas architecto doloremque cupiditate
-          distinctio necessitatibus?`,
-  },
-  {
-    id: "id3",
-    content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum dolorem saepe,
-          molestias autem voluptatem tempore porro necessitatibus voluptatibus quasi
-          repudiandae fugit ea distinctio. Amet voluptas architecto doloremque cupiditate
-          distinctio necessitatibus?`,
-  },
-]);
-
 const addNewNote = () => {
-  const id = new Date().getTime().toString();
-  notes.value.unshift({
-    id,
-    content: newNote.value,
-  });
+  storeNotes.addNote(newNote.value);
   newNote.value = "";
   newNoteRef.value.focus();
 };
 
-const deleteNote = (id) => {
-  notes.value = notes.value.filter((note) => note.id != id);
+const goToEditNotePage = (id) => {
+  router.push({ name: "editNote", params: { id } });
 };
 </script>

@@ -1,10 +1,16 @@
 <template>
-  <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+  <nav
+    ref="navBarRef"
+    class="navbar is-warning"
+    role="navigation"
+    aria-label="main navigation"
+  >
     <div class="container is-max-desktop px-2">
       <div class="navbar-brand">
         <a class="navbar-item is-size-4 is-family-monospace"> Noteballs </a>
 
         <a
+          ref="burguerButtonRef"
           role="button"
           class="navbar-burger"
           :class="{ 'is-active': showMobileNav }"
@@ -25,10 +31,20 @@
         :class="{ 'is-active': showMobileNav }"
       >
         <div class="navbar-end">
-          <router-link to="/" active-class="is-active" class="navbar-item">
+          <router-link
+            @click="showMobileNav = false"
+            to="/"
+            active-class="is-active"
+            class="navbar-item"
+          >
             Notes
           </router-link>
-          <router-link to="stats" active-class="is-active" class="navbar-item">
+          <router-link
+            @click="showMobileNav = false"
+            to="stats"
+            active-class="is-active"
+            class="navbar-item"
+          >
             Stats
           </router-link>
         </div>
@@ -39,12 +55,19 @@
 
 <script setup>
 /*
-  Mobile nav 
+  Mobile nav
 */
 
 import { ref } from "vue";
+import { onClickOutside } from "@vueuse/core";
 
+const navBarRef = ref(null);
+const burguerButtonRef = ref(null);
 const showMobileNav = ref(false);
+
+onClickOutside(navBarRef, () => (showMobileNav.value = false), {
+  ignore: burguerButtonRef,
+});
 </script>
 
 <style>
