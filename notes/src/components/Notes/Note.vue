@@ -1,7 +1,7 @@
 <template>
   <div class="card mb-4">
     <div class="card-content">
-      <div class="content" v-html="content"></div>
+      <div class="content">{{ content }}</div>
       <div class="has-text-right has-text-grey-light mt-2">
         <small>{{ CharactersLengthText }}</small>
       </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, reactive } from "vue";
 
 /**
  * Props

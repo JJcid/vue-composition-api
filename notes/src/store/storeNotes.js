@@ -5,25 +5,16 @@ export const useStoreNotes = defineStore('notes', {
     return {
       notes: [{
         id: "id1",
-        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum dolorem saepe,
-              molestias autem voluptatem tempore porro necessitatibus voluptatibus quasi
-              repudiandae fugit ea distinctio. Amet voluptas architecto doloremque cupiditate
-              distinctio necessitatibus?`,
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum dolorem saepe, molestias autem voluptatem tempore porro necessitatibus voluptatibus quasi repudiandae fugit ea distinctio. Amet voluptas architecto doloremque cupiditate distinctio necessitatibus?',
       },
       {
         id: "id2",
-        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum dolorem saepe,
-              molestias autem voluptatem tempore porro necessitatibus voluptatibus quasi
-              repudiandae fugit ea distinctio. Amet voluptas architecto doloremque cupiditate
-              distinctio necessitatibus?`,
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum dolorem saepe, molestias autem voluptatem tempore porro necessitatibus voluptatibus quasi repudiandae fugit ea distinctio. Amet voluptas architecto doloremque cupiditate distinctio necessitatibus?',
       },
       {
         id: "id3",
-        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum dolorem saepe,
-              molestias autem voluptatem tempore porro necessitatibus voluptatibus quasi
-              repudiandae fugit ea distinctio. Amet voluptas architecto doloremque cupiditate
-              distinctio necessitatibus?`,
-      },]
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum dolorem saepe, molestias autem voluptatem tempore porro necessitatibus voluptatibus quasi repudiandae fugit ea distinctio. Amet voluptas architecto doloremque cupiditate distinctio necessitatibus?',
+      }]
     }
   },
   getters: {
